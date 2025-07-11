@@ -31,7 +31,7 @@ nav li:hover:first-child{
 }
 .text_1{
     grid-area: text_1;
-    text-align: left;
+    text-align: center;
     list-style-type: none 
 }
 .Text-container{
