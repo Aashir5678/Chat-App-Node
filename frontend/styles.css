@@ -41,7 +41,7 @@ nav li:hover:first-child{
     align-items: flex-end;
     background-color: black;
     border-radius: 10px;
-    margin-top: 100%;
+    /* margin-top: 100%; */
 }
 #message-input{
     grid-area: message-input;
