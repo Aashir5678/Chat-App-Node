@@ -1,5 +1,5 @@
 .background{
-    background-color: gray;
+    background-color: #1F1C2C;
 }
 nav{
     background-color: black;
@@ -20,12 +20,22 @@ nav li{
 
 nav li:hover{
     color: bisque;
+    font-size: large;
+}
+nav li:active{
+    color: rgb(101, 171, 236);
+    font-size: larger;
 }
 nav li:hover:first-child{
     color: white;
+    font-size:initial;
+}
+nav li:active:first-child{
+    color: white;
+    font-size:initial;
 }
 .messages li{
-    border: 5px solid goldenrod;
+    border: 5px solid #928DAB;
     background-color: white;
     padding: 30px;
     border-radius:10px;
@@ -37,9 +47,9 @@ nav li:hover:first-child{
     list-style-type: none 
 }
 .Text-container{
-    border: 2px black solid;
+    border: 2px solid;
     align-items: flex-end;
-    background-color: black;
+    background-color: #928DAB;
     border-radius: 10px;
     /* margin-top: 100%; */
 }
@@ -50,15 +60,18 @@ nav li:hover:first-child{
 }
 #send-button{
     grid-area: send-button;
-    border: 3px gray solid;
-    background-color: aqua;
+    border: 3px solid;
+    background-color: #4C585B;
     display: flex;
     justify-content: center;
     border-radius: 10px;
     
 }
 #send-button:hover{
-    background-color: rgb(113, 148, 148);
+    background-color: #7E99A3;
+}
+#send-button:active{
+    background-color: #A5BFCC;
 }
 .input-area{
     padding: 30px;
