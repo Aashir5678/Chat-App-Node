@@ -37,7 +37,6 @@ form.addEventListener('click', (e) => {
 
 socket.on('all messages', messages => {
     userMessages = messages;
-    textbox.innerText = messages;
     console.log(messages);
 })
 

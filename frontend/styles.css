@@ -17,6 +17,7 @@ nav li{
     display: inline-flex;
     margin-right: 30px;
 }
+
 nav li:hover{
     color: bisque;
 }
