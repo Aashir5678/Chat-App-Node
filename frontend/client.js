@@ -36,24 +36,28 @@ form.addEventListener('click', (e) => {
 })
 
 socket.on('all messages', messages => {
-    userMessages = messages
-    console.log(messages)
+    userMessages = messages;
+    textbox.innerText = messages;
+    console.log(messages);
 })
 
 socket.on('message', message => {
-    let user = message['username']
+    let user = message['username'];
     
-    userMessages[user].push(message['message'])
-    console.log(user + ': ' + message['message'])
+    userMessages[user].push(message['message']);
+    console.log(user + ': ' + message['message']);
+    textbox.innerText = user + ': ' + message['message'];
 })
 
 socket.on('new connection', user => {
-    userMessages[user] = []
-    console.log('New connection: ' + user)
+    userMessages[user] = [];
+    console.log('New connection: ' + user);
+    alert('New connection: ' + user);
 })
 
 socket.on('leave', user => {
-    console.log(user + " has disconnected.")
-    delete userMessages[user]
+    console.log(user + " has disconnected.");
+    alert(user + " has disconnected.");
+    delete userMessages[user];
 })
 

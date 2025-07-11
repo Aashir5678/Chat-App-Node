@@ -28,6 +28,7 @@ nav li:hover:first-child{
     background-color: white;
     padding: 30px;
     border-radius:10px;
+    margin-top: 30px;
 }
 .text_1{
     grid-area: text_1;
