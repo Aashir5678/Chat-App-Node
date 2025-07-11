@@ -77,5 +77,6 @@ nav li:active:first-child{
     padding: 30px;
     display: grid;
     grid-template-areas:  "text_1       text_1        text_1         text_1        text_1        text_1        text_1"
+                            " . . . . . . ."
                         " message-input message-input message-input  message-input message-input message-input send-button";
 }

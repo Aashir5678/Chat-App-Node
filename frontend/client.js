@@ -11,10 +11,10 @@ const textbox = document.querySelector(".text_1");
 let username = null
 let userMessages = {}
 
+// 'click', form
 
-
-form.addEventListener('click', (e) => {
-    e.preventDefault();
+form.addEventListener("click", function(){
+    // e.preventDefault();
     if (inputBox.value) {
         if (username == null) {
             socket.emit('username', inputBox.value)
@@ -33,7 +33,7 @@ form.addEventListener('click', (e) => {
         
 
     }
-})
+});
 
 socket.on('all messages', messages => {
     userMessages = messages;
