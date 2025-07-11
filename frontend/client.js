@@ -51,3 +51,8 @@ socket.on('new connection', user => {
     console.log('New connection: ' + user)
 })
 
+socket.on('leave', user => {
+    console.log(user + " has disconnected.")
+    delete userMessages[user]
+})
+
