@@ -4,8 +4,9 @@
 
 const socket = io()
 
-let inputBox = document.getElementById('message-input')
+const inputBox = document.getElementById('message-input')
 const form = document.getElementById('send-button')
+const textbox = document.querySelector(".text_1");
 
 let username = null
 let userMessages = {}
@@ -13,7 +14,6 @@ let userMessages = {}
 
 
 form.addEventListener('click', (e) => {
-    console.log("working here");
     e.preventDefault();
     if (inputBox.value) {
         if (username == null) {
@@ -25,7 +25,8 @@ form.addEventListener('click', (e) => {
 
         else {
             socket.emit('message', inputBox.value)
-            console.log(username + ': ' + inputBox.value)
+             textbox.innerText = username + ': ' + inputBox.value;
+             console.log(username + ': ' + inputBox.value);
         }
 
         inputBox.value = ''

@@ -23,7 +23,17 @@ nav li:hover{
 nav li:hover:first-child{
     color: white;
 }
-
+.messages li{
+    border: 5px solid goldenrod;
+    background-color: white;
+    padding: 30px;
+    border-radius:10px;
+}
+.text_1{
+    grid-area: text_1;
+    text-align: left;
+    list-style-type: none 
+}
 .Text-container{
     border: 2px black solid;
     align-items: flex-end;
@@ -33,12 +43,17 @@ nav li:hover:first-child{
 }
 #message-input{
     grid-area: message-input;
+    border: 3px gray solid;
+    border-radius: 10px;
 }
 #send-button{
     grid-area: send-button;
     border: 3px gray solid;
     background-color: aqua;
-    justify-content: flex;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    
 }
 #send-button:hover{
     background-color: rgb(113, 148, 148);
@@ -46,5 +61,6 @@ nav li:hover:first-child{
 .input-area{
     padding: 30px;
     display: grid;
-    grid-template-areas: "message-input message-input message-input  message-input message-input message-input send-button";
+    grid-template-areas:  "text_1       text_1        text_1         text_1        text_1        text_1        text_1"
+                        " message-input message-input message-input  message-input message-input message-input send-button";
 }
