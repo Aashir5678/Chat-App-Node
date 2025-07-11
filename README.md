@@ -37,7 +37,7 @@ CHAT-APP/
 👥 Built By
 Aashir Alam – Socket.IO backend, event handling
 
-Agam Singh – Frontend UI + styling and front end Js
+Agam Singh – Frontend UI + styling and Frontend Js
 
 Rayyan Lodhi – Deployment, database (WIP)
 
