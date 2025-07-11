@@ -23,6 +23,7 @@ nav li:hover{
 nav li:hover:first-child{
     color: white;
 }
+
 .Text-container{
     border: 2px black solid;
     align-items: flex-end;
@@ -35,6 +36,12 @@ nav li:hover:first-child{
 }
 #send-button{
     grid-area: send-button;
+    border: 3px gray solid;
+    background-color: aqua;
+    justify-content: flex;
+}
+#send-button:hover{
+    background-color: rgb(113, 148, 148);
 }
 .input-area{
     padding: 30px;

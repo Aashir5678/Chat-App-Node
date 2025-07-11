@@ -4,15 +4,16 @@
 
 const socket = io()
 
-const inputBox = document.getElementById('message-input')
-const form = document.getElementById('send-container')
+let inputBox = document.getElementById('message-input')
+const form = document.getElementById('send-button')
 
 let username = null
 let userMessages = {}
 
 
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('click', (e) => {
+    console.log("working here");
     e.preventDefault();
     if (inputBox.value) {
         if (username == null) {

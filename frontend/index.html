@@ -8,9 +8,12 @@
   <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script defer src="./client.js"></script>
-  <link rel = "stylesheet" href = "/frontend/styles.css">
+  <link rel = "stylesheet" href = "/styles.css">
+
+
 </head>
-<nav>
+<body class="background">
+  <nav>
   <ul>
     <li>
       Chat
@@ -27,11 +30,19 @@
 
   </ul>
 </nav>
-<body class="background">
+<div class = "messages">
+  <ui>
+    <li>
+      message space 1
+    </li>
+  </ui>
+</div>
   <div class="Text-container">
   <div class="input-area">
     <input type="text" id="message-input">
-    <button type="submit" id="send-button">Send</button>
+    <div id="send-button">
+    <h3>Send</h3>
+    </div>
   </div>
   </div>
 </body>
