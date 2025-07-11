@@ -1,6 +1,14 @@
 .background{
     background-color: gray;
 }
+nav{
+    background-color: black;
+    border: 3px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
 .Text-container{
     border: 2px black solid;
     align-items: flex-end;
