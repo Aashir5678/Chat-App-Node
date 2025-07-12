@@ -39,13 +39,34 @@ nav li:active:first-child{
     background-color: white;
     padding: 30px;
     border-radius:10px;
+}
+.messages li:first-child{
     margin-top: 30px;
+}
+.text{
+    text-align: left;
+    list-style-type: none;
+
+}
+.text_0{
+    grid-area: text_0;
 }
 .text_1{
     grid-area: text_1;
-    text-align: center;
-    list-style-type: none 
 }
+
+.text_2{
+    grid-area: text_2;
+}
+
+.text_3{
+    grid-area: text_3;
+}
+
+.text_4{
+    grid-area: text_4;
+}
+
 .Text-container{
     border: 2px solid;
     align-items: flex-end;
@@ -76,7 +97,10 @@ nav li:active:first-child{
 .input-area{
     padding: 30px;
     display: grid;
-    grid-template-areas:  "text_1       text_1        text_1         text_1        text_1        text_1        text_1"
-                            " . . . . . . ."
+    grid-template-areas:   "text_0       text_0        text_0      text_0        text_0        text_0        text_0"
+                           "text_1       text_1        text_1         text_1        text_1        text_1        text_1"
+                           "text_2      text_2        text_2         text_2        text_2        text_2        text_2"
+                           "text_3       text_3        text_3         text_3        text_3       text_3        text_3"
+                           "text_4       text_4       text_4         text_4        text_4        text_4        text_4"
                         " message-input message-input message-input  message-input message-input message-input send-button";
 }

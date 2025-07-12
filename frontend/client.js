@@ -6,13 +6,17 @@ const socket = io()
 
 const inputBox = document.getElementById('message-input')
 const form = document.getElementById('send-button')
-const textbox = document.querySelector(".text_1");
+const textbox0 = document.querySelector(".text_0");
+const textbox1 = document.querySelector(".text_1");
+const textbox2= document.querySelector(".text_2");
+const textbox3 = document.querySelector(".text_3");
+const textbox4 = document.querySelector(".text_4");
+const array = [textbox0, textbox1, textbox2, textbox3, textbox4]
 
 let username = null
 let userMessages = {}
 
 // 'click', form
-
 form.addEventListener("click", function(){
     // e.preventDefault();
     if (inputBox.value) {
@@ -25,13 +29,18 @@ form.addEventListener("click", function(){
 
         else {
             socket.emit('message', inputBox.value)
-             textbox.innerText = username + ': ' + inputBox.value;
-             console.log(username + ': ' + inputBox.value);
+            
+            for(let i = 0; i < 5; i++){
+                if (array[i].innerText.length === 0){
+                    console.log("working-here");
+                    array[i].innerText = username + ': ' + inputBox.value;
+                    break
+                }
+            }
+            console.log(username + ': ' + inputBox.value);
         }
 
         inputBox.value = ''
-        
-
     }
 });
 
