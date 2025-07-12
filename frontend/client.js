@@ -11,10 +11,11 @@ const textbox1 = document.querySelector(".text_1");
 const textbox2= document.querySelector(".text_2");
 const textbox3 = document.querySelector(".text_3");
 const textbox4 = document.querySelector(".text_4");
-const array = [textbox0, textbox1, textbox2, textbox3, textbox4]
+const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
 
 let username = null
 let userMessages = {}
+let filled = false;
 
 // 'click', form
 form.addEventListener("click", function(){
@@ -29,18 +30,25 @@ form.addEventListener("click", function(){
 
         else {
             socket.emit('message', inputBox.value)
-            
-            for(let i = 0; i < 5; i++){
+            if(!(textbox4.innerText.length === 0)){
+                filled = true;
+            }
+            if(filled){
+                 for(let i = 0; i < array.length - 1; i++){
+                    array[i].innerText = array[i + 1].innerText;
+                }
+                textbox4.innerText = "";
+            }
+            for(let i = 0; i < array.length; i++){
                 if (array[i].innerText.length === 0){
-                    console.log("working-here");
                     array[i].innerText = username + ': ' + inputBox.value;
-                    break
+                    break;
                 }
             }
             console.log(username + ': ' + inputBox.value);
         }
 
-        inputBox.value = ''
+        inputBox.value = '';
     }
 });
 
@@ -54,9 +62,17 @@ socket.on('message', message => {
     
     userMessages[user].push(message['message']);
     console.log(user + ': ' + message['message']);
+     if(!(textbox4.innerText.length === 0)){
+                filled = true;
+            }
+            if(filled){
+                 for(let i = 0; i < array.length - 1; i++){
+                    array[i].innerText = array[i + 1].innerText;
+                }
+                textbox4.innerText = "";
+    }
     for(let i = 0; i < 5; i++){
                 if (array[i].innerText.length === 0){
-                    console.log("working-here");
                     array[i].innerText = user + ': ' + message['message'];
                     break
                 }
@@ -67,12 +83,42 @@ socket.on('message', message => {
 socket.on('new connection', user => {
     userMessages[user] = [];
     console.log('New connection: ' + user);
-    alert('New connection: ' + user);
+      if(!(textbox4.innerText.length === 0)){
+                filled = true;
+            }
+            if(filled){
+                 for(let i = 0; i < array.length - 1; i++){
+                    array[i].innerText = array[i + 1].innerText;
+                }
+                textbox4.innerText = "";
+    }
+    for(let i = 0; i < 5; i++){
+                if (array[i].innerText.length === 0){
+                    console.log("working-here");
+                    array[i].innerText = 'New connection: ' + user;
+                    break
+                }
+            }
 })
 
 socket.on('leave', user => {
     console.log(user + " has disconnected.");
-    alert(user + " has disconnected.");
+          if(!(textbox4.innerText.length === 0)){
+                filled = true;
+            }
+            if(filled){
+                 for(let i = 0; i < array.length - 1; i++){
+                    array[i].innerText = array[i + 1].innerText;
+                }
+                textbox4.innerText = "";
+    }
+    for(let i = 0; i < 5; i++){
+                if (array[i].innerText.length === 0){
+                    console.log("working-here");
+                    array[i].innerText = user + " has disconnected.";
+                    break
+                }
+            }
     delete userMessages[user];
 })
 
