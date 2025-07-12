@@ -53,8 +53,14 @@ socket.on('message', message => {
     let user = message['username'];
     
     userMessages[user].push(message['message']);
+    for(let i = 0; i < 5; i++){
+                if (array[i].innerText.length === 0){
+                    console.log("working-here");
+                    array[i].innerText = username + ': ' + inputBox.value;
+                    break
+                }
+            }
     console.log(user + ': ' + message['message']);
-    textbox.innerText = user + ': ' + message['message'];
 })
 
 socket.on('new connection', user => {
