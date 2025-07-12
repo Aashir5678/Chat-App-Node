@@ -4,8 +4,8 @@
 
 const socket = io()
 
-const inputBox = document.getElementById('message-input')
-const form = document.getElementById('send-button')
+const inputBox = document.getElementById('message-input');
+const form = document.getElementById('send-button');
 const textbox0 = document.querySelector(".text_0");
 const textbox1 = document.querySelector(".text_1");
 const textbox2= document.querySelector(".text_2");
@@ -16,8 +16,6 @@ const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
 let username = null
 let userMessages = {}
 let filled = false;
-
-// 'click', form
 form.addEventListener("click", function(){
     // e.preventDefault();
     if (inputBox.value) {
