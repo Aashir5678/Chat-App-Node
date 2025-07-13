@@ -24,17 +24,6 @@ A minimalist, fast, and real-time chat application built with **Node.js**, **Soc
 
 ---
 
-## 📂 Project Structure
-CHAT-APP/
-├── frontend/
-│ ├── client.js # Handles UI and socket communication
-│ ├── index.html # Chat UI
-│ └── styles.css # Simple styling
-├── server.js # Express + Socket.IO server
-├── package.json # Dependencies
-├── .gitignore
-└── README.md
-
 👥 Built By
 Aashir Alam – Socket.IO backend, event handling, MongoDB database
 
