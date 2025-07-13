@@ -12,7 +12,7 @@ const server = http.createServer(app)
 const { Server } = require('socket.io') 
 const io = new Server(server)
 
-const db_pass = fs.readFileSync('db_pass.txt', 'utf-8')
+const db_pass = process.env.db_pass
 const db_uri = 'mongodb+srv://aashiralam06:' + db_pass + '@messages.bzi197g.mongodb.net/?retryWrites=true&w=majority&appName=Messages'
 const port = 3000
 let users = {}
