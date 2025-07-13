@@ -20,8 +20,8 @@ A minimalist, fast, and real-time chat application built with **Node.js**, **Soc
 
 | Frontend | Backend | Realtime |
 |----------|---------|----------|
-| HTML/CSS/JS | Node.js (Express) | Socket.IO |
-                MongoDB
+| HTML/CSS/JS | Node.js (Express), MongoDB | Socket.IO |
+
 ---
 
 ## 📂 Project Structure
