@@ -12,6 +12,7 @@ A minimalist, fast, and real-time chat application built with **Node.js**, **Soc
 - 🚪 User join/leave notifications
 - ⚡ Built entirely on web sockets — no page refresh needed
 - 🔐 Local-first and super lightweight
+- 🥭 MongoDB database to save messages
 
 ---
 
@@ -20,7 +21,7 @@ A minimalist, fast, and real-time chat application built with **Node.js**, **Soc
 | Frontend | Backend | Realtime |
 |----------|---------|----------|
 | HTML/CSS/JS | Node.js (Express) | Socket.IO |
-
+                MongoDB
 ---
 
 ## 📂 Project Structure
@@ -35,11 +36,11 @@ CHAT-APP/
 └── README.md
 
 👥 Built By
-Aashir Alam – Socket.IO backend, event handling
+Aashir Alam – Socket.IO backend, event handling, MongoDB database
 
 Agam Singh – Frontend UI + styling and Frontend Js
 
-Rayyan Lodhi – Deployment, database (WIP)
+Rayyan Lodhi – Deployment, database
 
 🧠 We built this to learn how to manage real-time client-server communication and deepen our collaborative dev experience.
 
