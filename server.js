@@ -40,7 +40,7 @@ const userMessage = mongoose.model('userMessage', userMessageSchema)
 
 
 io.on('connection', socket => {
-    
+    socket.emit('all messages', orderedMessages)
     socket.on('disconnect', () => {
         if (socket.id in users) {
             activeUsers[users[socket.id]] = false
@@ -77,7 +77,7 @@ io.on('connection', socket => {
         console.log('New connection: ' + username)
         socket.broadcast.emit('new connection', username)
 
-        socket.emit('all messages', {'ordered messages': orderedMessages, 'active users': activeUsers})
+        socket.emit('active users', activeUsers)
         users[socket.id] = username
 
 

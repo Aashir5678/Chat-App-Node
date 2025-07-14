@@ -65,10 +65,8 @@ form.addEventListener("click", function(){
 });
 
 socket.on('all messages', messages => {
-    userMessages = messages['ordered messages']
-    activeUsers = messages['active users']
+    userMessages = messages
 
-    console.log(activeUsers)
     // console.log(userMessages);
 
     for (let i = 0; i < userMessages.length; i++) {
@@ -90,6 +88,10 @@ socket.on('all messages', messages => {
             }
         }
     }
+})
+
+socket.on('active users', users => {
+    activeUsers = users
 })
 
 
