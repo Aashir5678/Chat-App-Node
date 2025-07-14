@@ -15,6 +15,7 @@ const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
 
 
 let username = null
+let activeUsers = {}
 let userMessages = []
 let filled = false;
 
@@ -34,23 +35,29 @@ form.addEventListener("click", function(){
         }
 
         else {
-            socket.emit('message', inputBox.value)
-            if(!(textbox4.innerText.length === 0)){
-                filled = true;
+            if (inputBox.value === "/users") {
+                console.log(activeUsers)
             }
-            if(filled){
-                 for(let i = 0; i < array.length - 1; i++){
-                    array[i].innerText = array[i + 1].innerText;
+
+            else {
+                socket.emit('message', inputBox.value)
+                if(!(textbox4.innerText.length === 0)){
+                    filled = true;
                 }
-                textbox4.innerText = "";
-            }
-            for(let i = 0; i < array.length; i++){
-                if (array[i].innerText.length === 0){
-                    array[i].innerText = username + ': ' + inputBox.value;
-                    break;
+                if(filled){
+                    for(let i = 0; i < array.length - 1; i++){
+                        array[i].innerText = array[i + 1].innerText;
+                    }
+                    textbox4.innerText = "";
                 }
+                for(let i = 0; i < array.length; i++){
+                    if (array[i].innerText.length === 0){
+                        array[i].innerText = username + ': ' + inputBox.value;
+                        break;
+                    }
+                }
+                console.log(username + ': ' + inputBox.value);
             }
-            console.log(username + ': ' + inputBox.value);
         }
 
         inputBox.value = '';
@@ -58,8 +65,11 @@ form.addEventListener("click", function(){
 });
 
 socket.on('all messages', messages => {
-    userMessages = messages;
-    console.log(userMessages);
+    userMessages = messages['ordered messages']
+    activeUsers = messages['active users']
+
+    console.log(activeUsers)
+    // console.log(userMessages);
 
     for (let i = 0; i < userMessages.length; i++) {
         let message = userMessages[i]
@@ -81,6 +91,7 @@ socket.on('all messages', messages => {
         }
     }
 })
+
 
 socket.on('message', message => {
     let user = message['username'];
@@ -109,7 +120,9 @@ socket.on('message', message => {
 })
 
 socket.on('new connection', user => {
+    activeUsers[user] = true
     userMessages[user] = [];
+
     console.log('New connection: ' + user);
       if(!(textbox4.innerText.length === 0)){
                 filled = true;
@@ -131,6 +144,8 @@ socket.on('new connection', user => {
 
 socket.on('leave', user => {
     console.log(user + " has disconnected.");
+
+    activeUsers[user] = false
     if(!(textbox4.innerText.length === 0)){
         filled = true;
     }

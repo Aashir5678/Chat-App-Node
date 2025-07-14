@@ -5,19 +5,18 @@
 
 const express = require('express')
 const app = express()
-const fs = require('fs')
 const mongoose = require('mongoose')
 const http = require('http')
 const server = http.createServer(app)
-const { Server } = require('socket.io') 
+const { Server } = require('socket.io')
 const io = new Server(server)
 
 const db_pass = process.env.db_pass
 const db_uri = 'mongodb+srv://aashiralam06:' + db_pass + '@messages.bzi197g.mongodb.net/?retryWrites=true&w=majority&appName=Messages'
 const port = 3000
 let users = {}
+let activeUsers = {} // key: username, pair: boolean connected
 let orderedMessages = []
-let userMessages = {}
 
 app.use(express.static(__dirname + '/frontend'))
 
@@ -41,13 +40,12 @@ const userMessage = mongoose.model('userMessage', userMessageSchema)
 
 
 io.on('connection', socket => {
-    socket.emit('all messages', orderedMessages)
     
     socket.on('disconnect', () => {
         if (socket.id in users) {
+            activeUsers[users[socket.id]] = false
             socket.broadcast.emit('leave', users[socket.id])
             console.log(users[socket.id] + " has disconnected.")
-            delete userMessages[users[socket.id]]
             delete users[socket.id]
 
         }
@@ -66,7 +64,6 @@ io.on('connection', socket => {
         let message_obj = {'username': username, 'message': mes}
         socket.broadcast.emit('message', message_obj)
 
-        userMessages[username].push(mes)
         orderedMessages.push(username + ': ' + mes)
 
         let message = new userMessage({user: username, message: mes})
@@ -76,11 +73,12 @@ io.on('connection', socket => {
     })
 
     socket.on('username', username => {
+        activeUsers[username] = true
         console.log('New connection: ' + username)
         socket.broadcast.emit('new connection', username)
-        users[socket.id] = username
-        userMessages[username] = [];
 
+        socket.emit('all messages', {'ordered messages': orderedMessages, 'active users': activeUsers})
+        users[socket.id] = username
 
 
 
