@@ -4,6 +4,8 @@ A minimalist, fast, and real-time chat application built with **Node.js**, **Soc
 
 ---
 
+Check out the live website [here](https://chat-app-node-svtx.onrender.com/)
+
 ## 🚀 Features
 
 - 🧠 Username-based message tracking
