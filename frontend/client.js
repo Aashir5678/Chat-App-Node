@@ -35,6 +35,7 @@ form.addEventListener("click", function(){
         if (username == null || !permissibleUsername) {
             socket.emit('username', inputBox.value)
             username = inputBox.value
+            usersOnline.push[username]
             userMessages[username] = []
         }
 
@@ -103,11 +104,13 @@ socket.on('active users', users => {
 
 socket.on('invalid username', () => {
     alert('Username "' + username + '" already exists.')
+    activeuser()
 })
 
 
 socket.on('message', message => {
     let user = message['username'];
+    activeuser()
     userMessages.push(user + ': ' + message['message'])
     console.log(user + ': ' + message['message']);
      if(!(textbox4.innerText.length === 0)){
@@ -137,7 +140,7 @@ socket.on('new connection', user => {
     userMessages[user] = [];
     console.log(usersOnline);
     usersOnline.push(user);
-
+    activeuser()
     activeuser()
 
     console.log('New connection: ' + user);
