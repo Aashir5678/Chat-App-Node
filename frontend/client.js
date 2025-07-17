@@ -1,8 +1,3 @@
-
-
-// DISABLE FIREWALL FOR PRIVATE NETWORKS
-
-
 const socket = io()
 const inputBox = document.getElementById('message-input')
 const form = document.getElementById('send-button')
@@ -15,6 +10,7 @@ const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
 
 
 let username = null
+let permissibleUsername = false
 let activeUsers = {}
 let userMessages = []
 let filled = false;
@@ -25,9 +21,8 @@ let filled = false;
 form.addEventListener("click", function(){
     // e.preventDefault();
     if (inputBox.value) {
-        if (username == null) {
+        if (username == null || !permissibleUsername) {
             socket.emit('username', inputBox.value)
-
             username = inputBox.value
             userMessages[username] = []
 
@@ -92,6 +87,11 @@ socket.on('all messages', messages => {
 
 socket.on('active users', users => {
     activeUsers = users
+    permissibleUsername = true
+})
+
+socket.on('invalid username', () => {
+    alert('Username "' + username + '" already exists.')
 })
 
 
@@ -120,6 +120,7 @@ socket.on('message', message => {
     }
 
 })
+
 
 socket.on('new connection', user => {
     activeUsers[user] = true

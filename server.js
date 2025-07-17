@@ -1,8 +1,3 @@
-
-
-// DISABLE FIREWALL FOR PRIVATE NETWORKS
-
-
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -26,7 +21,7 @@ async function connect() {
     await mongoose.connect(db_uri)
     console.log('connevted')
 
-    const allMessages = await userMessage.find()
+    const allMessages = await userMessage.find() // Find all user messages
 
     // console.log(typeof(allMessages))
     for (let i =0; i < allMessages.length; i++) {
@@ -74,12 +69,19 @@ io.on('connection', socket => {
     })
 
     socket.on('username', username => {
-        activeUsers[username] = true
-        console.log('New connection: ' + username)
-        socket.broadcast.emit('new connection', username)
+        if (username in activeUsers) {
+            console.log('Username already exists: ' + username)
+            socket.emit('invalid username', {})
+        }
 
-        socket.emit('active users', activeUsers)
-        users[socket.id] = username
+        else {
+            activeUsers[username] = true
+            console.log('New connection: ' + username)
+            socket.broadcast.emit('new connection', username)
+            socket.emit('active users', activeUsers, )
+
+            users[socket.id] = username
+        }
 
 
 
