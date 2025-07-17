@@ -34,6 +34,16 @@ nav li:active:first-child{
     color: white;
     font-size:initial;
 }
+.Online_members{
+    border: 1px solid;
+    background-color: rgb(70, 72, 73);
+    padding: 20px;
+    border-radius: 30px;
+    justify-content: left;
+}
+.user_display{
+    
+}
 .messages li{
     border: 5px solid #928DAB;
     background-color: white;

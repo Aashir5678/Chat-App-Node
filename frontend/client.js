@@ -7,16 +7,28 @@ const textbox2= document.querySelector(".text_2");
 const textbox3 = document.querySelector(".text_3");
 const textbox4 = document.querySelector(".text_4");
 const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
-
+const userDisplay = document.querySelector(".user_display")
 
 let username = null
 let permissibleUsername = false
 let activeUsers = {}
 let userMessages = []
 let filled = false;
+let usersOnline = []
+activeuser()
 
-// 'click', form
-
+function activeuser(){
+    if (usersOnline.length === 0 || usersOnline.length === 1){
+        userDisplay.innerText = "🟢 only you are active right now";
+        console.log("only u");
+    }
+    else{
+        console.log("more");
+        for(let i = 0; i < usersOnline.length; i++){
+           userDisplay.innerText =  "🟢" + users[i];
+        }
+    }
+}
 
 form.addEventListener("click", function(){
     // e.preventDefault();
@@ -25,8 +37,7 @@ form.addEventListener("click", function(){
             socket.emit('username', inputBox.value)
             username = inputBox.value
             userMessages[username] = []
-
-            
+            usersOnline.push(username);
         }
 
         else {
@@ -97,7 +108,7 @@ socket.on('invalid username', () => {
 
 socket.on('message', message => {
     let user = message['username'];
-    
+    usersOnline.push[user];
     userMessages.push(user + ': ' + message['message'])
     console.log(user + ': ' + message['message']);
      if(!(textbox4.innerText.length === 0)){
@@ -125,6 +136,9 @@ socket.on('message', message => {
 socket.on('new connection', user => {
     activeUsers[user] = true
     userMessages[user] = [];
+    console.log(usersOnline);
+    usersOnline.push[user];
+    activeuser()
 
     console.log('New connection: ' + user);
       if(!(textbox4.innerText.length === 0)){
@@ -146,8 +160,8 @@ socket.on('new connection', user => {
 })
 
 socket.on('leave', user => {
+    activeuser()
     console.log(user + " has disconnected.");
-
     activeUsers[user] = false
     if(!(textbox4.innerText.length === 0)){
         filled = true;
@@ -168,3 +182,4 @@ socket.on('leave', user => {
     delete userMessages[user];
 })
 
+activeuser()
