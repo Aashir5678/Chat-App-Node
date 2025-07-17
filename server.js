@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -6,8 +7,8 @@ const server = http.createServer(app)
 const { Server } = require('socket.io')
 const io = new Server(server)
 
-const db_pass = process.env.db_pass
-const db_username = process.env.db_user
+const db_pass = process.env.db_pass ;
+const db_username = process.env.db_user ;
 const db_uri = 'mongodb+srv://' + db_username + ':' + db_pass + '@messages.bzi197g.mongodb.net/?retryWrites=true&w=majority&appName=Messages'
 const port = 3000
 let users = {}
@@ -19,7 +20,7 @@ app.use(express.static(__dirname + '/frontend'))
 
 async function connect() {
     await mongoose.connect(db_uri)
-    console.log('connevted')
+    console.log('connected')
 
     const allMessages = await userMessage.find() // Find all user messages
 
