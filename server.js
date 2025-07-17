@@ -1,8 +1,4 @@
-
-
-// DISABLE FIREWALL FOR PRIVATE NETWORKS
-
-
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -11,12 +7,12 @@ const server = http.createServer(app)
 const { Server } = require('socket.io')
 const io = new Server(server)
 
-const db_pass = process.env.db_pass
-const db_username = process.env.db_user
-const db_uri = 'mongodb+srv:// ' + db_username + ':' + db_pass + '@messages.bzi197g.mongodb.net/?retryWrites=true&w=majority&appName=Messages'
+const db_pass = process.env.db_pass ;
+const db_username = process.env.db_user ;
+const db_uri = 'mongodb+srv://' + db_username + ':' + db_pass + '@messages.bzi197g.mongodb.net/?retryWrites=true&w=majority&appName=Messages'
 const port = 3000
 let users = {}
-let activeUsers = {} // key: username, pair: boolean connected
+let activeUsers = []
 let orderedMessages = []
 
 app.use(express.static(__dirname + '/frontend'))
@@ -24,9 +20,9 @@ app.use(express.static(__dirname + '/frontend'))
 
 async function connect() {
     await mongoose.connect(db_uri)
-    console.log('connevted')
+    console.log('connected')
 
-    const allMessages = await userMessage.find()
+    const allMessages = await userMessage.find() // Find all user messages
 
     // console.log(typeof(allMessages))
     for (let i =0; i < allMessages.length; i++) {
@@ -44,7 +40,8 @@ io.on('connection', socket => {
     socket.emit('all messages', orderedMessages)
     socket.on('disconnect', () => {
         if (socket.id in users) {
-            activeUsers[users[socket.id]] = false
+            activeUsers.splice(activeUsers.indexOf(users[socket.id]), 1)
+            // activeUsers[users[socket.id]] = false
             socket.broadcast.emit('leave', users[socket.id])
             console.log(users[socket.id] + " has disconnected.")
             delete users[socket.id]
@@ -74,12 +71,19 @@ io.on('connection', socket => {
     })
 
     socket.on('username', username => {
-        activeUsers[username] = true
-        console.log('New connection: ' + username)
-        socket.broadcast.emit('new connection', username)
+        if (username in activeUsers) {
+            console.log('Username already exists: ' + username)
+            socket.emit('invalid username', {})
+        }
 
-        socket.emit('active users', activeUsers)
-        users[socket.id] = username
+        else {
+            activeUsers.push(username)
+            console.log('New connection: ' + username)
+            socket.broadcast.emit('new connection', username)
+            socket.emit('active users', activeUsers, )
+
+            users[socket.id] = username
+        }
 
 
 
