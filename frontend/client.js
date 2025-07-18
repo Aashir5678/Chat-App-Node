@@ -107,7 +107,7 @@ socket.on('invalid username', () => {
     activeuser()
 })
 
-
+//hello gautam
 socket.on('message', message => {
     let user = message['username'];
     activeuser()
