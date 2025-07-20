@@ -23,10 +23,11 @@ function activeuser(){
     else{
         console.log("more");
         for(let i = 0; i < usersOnline.length; i++){
-           userDisplay.innerText +=  "🟢" + usersOnline[i];
+           userDisplay.innerText +=  " 🟢 " + usersOnline[i] ;
         }
     }
 }
+
 function textboxfill(message){
       if(!(textbox4.innerText.length === 0)){
         filled = true;
@@ -54,6 +55,8 @@ form.addEventListener("click", function(){
             username = inputBox.value
             usersOnline.push[username]
             userMessages[username] = []
+            userDisplay.innerText = "";
+            activeuser();
         }
 
         else {
@@ -62,7 +65,7 @@ form.addEventListener("click", function(){
             }
 
             else {
-                socket.emit('message', inputBox.value)
+                socket.emit('message', inputBox.value);
                 if(!(textbox4.innerText.length === 0)){
                     filled = true;
                 }
