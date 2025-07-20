@@ -14,6 +14,7 @@ let permissibleUsername = false
 let userMessages = []
 let filled = false;
 let usersOnline = []
+activeuser()
 
 function activeuser(){
     // || usersOnline.length === 1
@@ -23,6 +24,7 @@ function activeuser(){
     }
     else{
         console.log("more");
+         userDisplay.innerText = ""
         for(let i = 0; i < usersOnline.length; i++){
            userDisplay.innerText +=  " 🟢 " + usersOnline[i];
         }
