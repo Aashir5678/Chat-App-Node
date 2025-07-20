@@ -16,14 +16,15 @@ let filled = false;
 let usersOnline = []
 
 function activeuser(){
-    if (usersOnline.length === 0 || usersOnline.length === 1){
+    // || usersOnline.length === 1
+    if (usersOnline.length === 0){
         userDisplay.innerText = "🟢 only you are active right now";
         console.log("only u");
     }
     else{
         console.log("more");
         for(let i = 0; i < usersOnline.length; i++){
-           userDisplay.innerText +=  " 🟢 " + usersOnline[i] ;
+           userDisplay.innerText +=  " 🟢 " + usersOnline[i];
         }
     }
 }
@@ -56,6 +57,7 @@ form.addEventListener("click", function(){
             usersOnline.push[username]
             userMessages[username] = []
             userDisplay.innerText = "";
+            usersOnline.push(username);
             activeuser();
         }
 
