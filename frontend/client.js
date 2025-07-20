@@ -14,7 +14,6 @@ let permissibleUsername = false
 let userMessages = []
 let filled = false;
 let usersOnline = []
-activeuser()
 
 function activeuser(){
     if (usersOnline.length === 0 || usersOnline.length === 1){
@@ -24,7 +23,7 @@ function activeuser(){
     else{
         console.log("more");
         for(let i = 0; i < usersOnline.length; i++){
-           userDisplay.innerText =  "🟢" + usersOnline[i];
+           userDisplay.innerText +=  "🟢" + usersOnline[i];
         }
     }
 }
@@ -93,17 +92,14 @@ socket.on('active users', users => {
     usersOnline = users
     permissibleUsername = true
 
-    activeuser()
 })
 
 socket.on('invalid username', () => {
     alert('Username "' + username + '" already exists.')
-    activeuser()
 })
 
 socket.on('message', message => {
     let user = message['username'];
-    activeuser()
     userMessages.push(user + ': ' + message['message'])
     console.log(user + ': ' + message['message']);
     let messageThis = user + ': ' + message['message'];
@@ -117,6 +113,7 @@ socket.on('new connection', user => {
     userMessages[user] = [];
     console.log(usersOnline);
     usersOnline.push(user);
+    userDisplay.innerText = ""
     activeuser()
 
     console.log('New connection: ' + user);
@@ -130,6 +127,7 @@ socket.on('leave', user => {
     usersOnline.splice(usersOnline.indexOf(user), 1)
     messageLeft = user + " has disconnected."
     textboxfill(messageLeft);
+    userDisplay.innerText = ""
     activeuser()
     delete userMessages[user];
 })
