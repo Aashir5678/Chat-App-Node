@@ -28,9 +28,27 @@ function activeuser(){
         }
     }
 }
+function textboxfill(message){
+      if(!(textbox4.innerText.length === 0)){
+        filled = true;
+    }
 
+    if(filled){
+        for(let i = 0; i < array.length - 1; i++){
+            array[i].innerText = array[i + 1].innerText;
+        }
+        textbox4.innerText = "";
+    }
+
+    
+    for(let i = 0; i < 5; i++){
+        if (array[i].innerText.length === 0){
+            array[i].innerText = message;
+            break
+        }
+    }
+}
 form.addEventListener("click", function(){
-    // e.preventDefault();
     if (inputBox.value) {
         if (username == null || !permissibleUsername) {
             socket.emit('username', inputBox.value)
@@ -49,18 +67,8 @@ form.addEventListener("click", function(){
                 if(!(textbox4.innerText.length === 0)){
                     filled = true;
                 }
-                if(filled){
-                    for(let i = 0; i < array.length - 1; i++){
-                        array[i].innerText = array[i + 1].innerText;
-                    }
-                    textbox4.innerText = "";
-                }
-                for(let i = 0; i < array.length; i++){
-                    if (array[i].innerText.length === 0){
-                        array[i].innerText = username + ': ' + inputBox.value;
-                        break;
-                    }
-                }
+                let messageUser = username + ': ' + inputBox.value;
+                textboxfill(messageUser);
                 console.log(username + ': ' + inputBox.value);
             }
         }
@@ -75,24 +83,10 @@ socket.on('all messages', messages => {
     // console.log(userMessages);
 
     for (let i = 0; i < userMessages.length; i++) {
-        let message = userMessages[i]
-
-        if(!(textbox4.innerText.length === 0)){
-                filled = true;
-            }
-            if(filled){
-                 for(let i = 0; i < array.length - 1; i++){
-                    array[i].innerText = array[i + 1].innerText;
-                }
-                textbox4.innerText = "";
-    }
-        for(let i = 0; i < 5; i++){
-            if (array[i].innerText.length === 0){
-                array[i].innerText = message;
-                break
-            }
+        let message = userMessages[i];
+        
+        textboxfill(message);
         }
-    }
 })
 
 socket.on('active users', users => {
@@ -107,30 +101,13 @@ socket.on('invalid username', () => {
     activeuser()
 })
 
-//hello gautam
 socket.on('message', message => {
     let user = message['username'];
     activeuser()
     userMessages.push(user + ': ' + message['message'])
     console.log(user + ': ' + message['message']);
-     if(!(textbox4.innerText.length === 0)){
-        filled = true;
-    }
-
-    if(filled){
-        for(let i = 0; i < array.length - 1; i++){
-            array[i].innerText = array[i + 1].innerText;
-        }
-        textbox4.innerText = "";
-    }
-
-    
-    for(let i = 0; i < 5; i++){
-        if (array[i].innerText.length === 0){
-            array[i].innerText = user + ': ' + message['message'];
-            break
-        }
-    }
+    let messageThis = user + ': ' + message['message'];
+    textboxfill(messageThis);
 
 })
 
@@ -141,48 +118,18 @@ socket.on('new connection', user => {
     console.log(usersOnline);
     usersOnline.push(user);
     activeuser()
-    activeuser()
 
     console.log('New connection: ' + user);
-      if(!(textbox4.innerText.length === 0)){
-                filled = true;
-            }
-            if(filled){
-                 for(let i = 0; i < array.length - 1; i++){
-                    array[i].innerText = array[i + 1].innerText;
-                }
-                textbox4.innerText = "";
-    }
-    for(let i = 0; i < 5; i++){
-        if (array[i].innerText.length === 0){
-            console.log("working-here");
-            array[i].innerText = 'New connection: ' + user;
-            break
-        }
-    }
+    messageNewUser = 'New connection: ' + user
+    textboxfill(messageNewUser);
+    
 })
 
 socket.on('leave', user => {
     console.log(user + " has disconnected.");
     usersOnline.splice(usersOnline.indexOf(user), 1)
-
+    messageLeft = user + " has disconnected."
+    textboxfill(messageLeft);
     activeuser()
-    // activeUsers[user] = false
-    if(!(textbox4.innerText.length === 0)){
-        filled = true;
-    }
-    if(filled){
-            for(let i = 0; i < array.length - 1; i++){
-            array[i].innerText = array[i + 1].innerText;
-        }
-        textbox4.innerText = "";
-    }
-    for(let i = 0; i < 5; i++){
-                if (array[i].innerText.length === 0){
-                    console.log("working-here");
-                    array[i].innerText = user + " has disconnected.";
-                    break
-                }
-            }
     delete userMessages[user];
 })
