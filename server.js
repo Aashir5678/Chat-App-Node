@@ -7,15 +7,15 @@ const server = http.createServer(app)
 const { Server } = require('socket.io')
 const io = new Server(server)
 
-const db_pass = process.env.db_pass ;
-const db_username = process.env.db_user ;
+const db_pass = process.env.db_pass;
+const db_username = process.env.db_user;
 const db_uri = 'mongodb+srv://' + db_username + ':' + db_pass + '@messages.bzi197g.mongodb.net/?retryWrites=true&w=majority&appName=Messages'
-const port = 3000
-let users = {}
-let activeUsers = []
-let orderedMessages = []
+const port = 3000;
+let users = {};
+let activeUsers = [];
+let orderedMessages = [];
 
-app.use(express.static(__dirname + '/frontend'))
+app.use(express.static(__dirname + '/frontend'));
 
 
 async function connect() {
