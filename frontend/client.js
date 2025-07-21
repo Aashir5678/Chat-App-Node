@@ -1,13 +1,13 @@
 const socket = io()
 const inputBox = document.getElementById('message-input')
-const form = document.getElementById('send-button')
+const form = document.querySelector('.input-area')
 const textbox0 = document.querySelector(".text_0");
 const textbox1 = document.querySelector(".text_1");
 const textbox2= document.querySelector(".text_2");
 const textbox3 = document.querySelector(".text_3");
 const textbox4 = document.querySelector(".text_4");
 const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
-const userDisplay = document.querySelector(".user_display")
+const userDisplay = document.querySelector(".user_display");
 
 let username = null
 let permissibleUsername = false
@@ -17,7 +17,6 @@ let usersOnline = []
 activeuser()
 
 function activeuser(){
-    // || usersOnline.length === 1
     if (usersOnline.length === 0){
         userDisplay.innerText = "🟢 only you are active right now";
         console.log("only u");
@@ -51,7 +50,8 @@ function textboxfill(message){
         }
     }
 }
-form.addEventListener("click", function(){
+form.addEventListener("submit", (e) => {
+    e.preventDefault(); 
     if (inputBox.value) {
         if (username == null || !permissibleUsername) {
             socket.emit('username', inputBox.value)

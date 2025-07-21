@@ -88,6 +88,7 @@ nav li:active:first-child{
     grid-area: message-input;
     border: 3px gray solid;
     border-radius: 10px;
+    padding: 30px;
 }
 #send-button{
     grid-area: send-button;
@@ -96,6 +97,7 @@ nav li:active:first-child{
     display: flex;
     justify-content: center;
     border-radius: 10px;
+    padding: 30px;
     
 }
 #send-button:hover{
