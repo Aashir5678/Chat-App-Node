@@ -9,20 +9,32 @@ nav{
     align-items: center;
     border-radius: 30px;
 }
-nav ul{
-    display: flex;
-    color: white;
-}
+/* to get rid off once all are anchors */
 nav li{
     display: inline-flex;
     margin-right: 30px;
+    color: white;
 }
-
+nav a{
+    text-decoration: none;
+    color: white;
+}
+/* to get rid off once all are anchors */
 nav li:hover{
     color: bisque;
     font-size: large;
+    text-decoration: underline;
+}
+nav a:hover{
+    color: bisque;
+    font-size: large;
+    text-decoration: underline;
 }
 nav li:active{
+    color: rgb(101, 171, 236);
+    font-size: larger;
+}
+nav a:active{
     color: rgb(101, 171, 236);
     font-size: larger;
 }
