@@ -17,6 +17,7 @@ let usersOnline = []
 activeuser()
 
 function activeuser(){
+    // || (usersOnline.length === 1 && usersOnline[0] === username) i am trying to implement something, please dont get rid of this
     if (usersOnline.length === 0){
         userDisplay.innerText = "🟢 only you are active right now";
         console.log("only u");
@@ -50,10 +51,20 @@ function textboxfill(message){
         }
     }
 }
+function userAlreadyExists(username){
+    for(let i = 0; i < usersOnline.length; i++){
+        if(usersOnline[i] === username){
+            alert("you cant have that username, its taken");
+            return true;
+        }
+    }
+}
+
 form.addEventListener("submit", (e) => {
     e.preventDefault(); 
     if (inputBox.value) {
         if (username == null || !permissibleUsername) {
+            if(!userAlreadyExists(inputBox.value)){
             socket.emit('username', inputBox.value)
             username = inputBox.value
             usersOnline.push[username]
@@ -61,6 +72,7 @@ form.addEventListener("submit", (e) => {
             userDisplay.innerText = "";
             usersOnline.push(username);
             activeuser();
+            }
         }
 
         else {
