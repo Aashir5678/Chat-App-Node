@@ -52,12 +52,17 @@ function textboxfill(message){
     }
 }
 function userAlreadyExists(username){
+    if(username.length >= 25){
+        alert("this username is too long");
+        return true;
+    }
     for(let i = 0; i < usersOnline.length; i++){
         if(usersOnline[i] === username){
             alert("you cant have that username, its taken");
             return true;
         }
     }
+    return false;
 }
 
 form.addEventListener("submit", (e) => {
