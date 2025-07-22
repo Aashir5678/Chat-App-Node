@@ -67,10 +67,9 @@ form.addEventListener("submit", (e) => {
             if(!userAlreadyExists(inputBox.value)){
             socket.emit('username', inputBox.value)
             username = inputBox.value
-            usersOnline.push[username]
+            usersOnline.push(username)
             userMessages[username] = []
             userDisplay.innerText = "";
-            usersOnline.push(username);
             activeuser();
             }
         }
