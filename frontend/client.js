@@ -51,7 +51,7 @@ function textboxfill(message){
         }
     }
 }
-function userAlreadyExists(username){
+function userValidityCheck(username){
     if(username.length >= 25){
         alert("this username is too long");
         return true;
@@ -69,7 +69,7 @@ form.addEventListener("submit", (e) => {
     e.preventDefault(); 
     if (inputBox.value) {
         if (username == null || !permissibleUsername) {
-            if(!userAlreadyExists(inputBox.value)){
+            if(!userValidityCheck(inputBox.value)){
             socket.emit('username', inputBox.value)
             username = inputBox.value
             usersOnline.push(username)
