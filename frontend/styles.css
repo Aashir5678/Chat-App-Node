@@ -57,6 +57,9 @@ nav li:active:first-child{
 .user_display{
     
 }
+.messages{
+    margin: 100px;
+}
 .messages li{
     border: 5px solid #928DAB;
     background-color: white;

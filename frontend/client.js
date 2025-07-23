@@ -7,6 +7,7 @@ const form = document.querySelector('.input-area')
 // const textbox3 = document.querySelector(".text_3");
 // const textbox4 = document.querySelector(".text_4");
 const texts = document.querySelector(".text");
+const MessageStacklength = texts.querySelectorAll("li").length;
 // const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
 const userDisplay = document.querySelector(".user_display");
 
@@ -65,6 +66,7 @@ function userValidityCheck(username){
     return false;
 }
 function newMessage(messageAdded){
+    // if(MessageStacklength <= 10){
     const message = document.createElement("li");
     message.innerText = messageAdded;
     texts.appendChild(message);
