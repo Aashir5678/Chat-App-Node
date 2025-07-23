@@ -1,12 +1,13 @@
 const socket = io()
 const inputBox = document.getElementById('message-input')
 const form = document.querySelector('.input-area')
-const textbox0 = document.querySelector(".text_0");
-const textbox1 = document.querySelector(".text_1");
-const textbox2= document.querySelector(".text_2");
-const textbox3 = document.querySelector(".text_3");
-const textbox4 = document.querySelector(".text_4");
-const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
+// const textbox0 = document.querySelector(".text_0");
+// const textbox1 = document.querySelector(".text_1");
+// const textbox2= document.querySelector(".text_2");
+// const textbox3 = document.querySelector(".text_3");
+// const textbox4 = document.querySelector(".text_4");
+const texts = document.querySelector(".text");
+// const array = [textbox0, textbox1, textbox2, textbox3, textbox4];
 const userDisplay = document.querySelector(".user_display");
 
 let username = null
@@ -15,7 +16,6 @@ let userMessages = []
 let filled = false;
 let usersOnline = []
 activeuser()
-
 function activeuser(){
     // || (usersOnline.length === 1 && usersOnline[0] === username) i am trying to implement something, please dont get rid of this
     if (usersOnline.length === 0){
@@ -31,26 +31,26 @@ function activeuser(){
     }
 }
 
-function textboxfill(message){
-      if(!(textbox4.innerText.length === 0)){
-        filled = true;
-    }
+// function textboxfill(message){  old way, keeping for refference, dont delete
+//       if(!(textbox4.innerText.length === 0)){
+//         filled = true;
+//     }
 
-    if(filled){
-        for(let i = 0; i < array.length - 1; i++){
-            array[i].innerText = array[i + 1].innerText;
-        }
-        textbox4.innerText = "";
-    }
+//     if(filled){
+//         for(let i = 0; i < array.length - 1; i++){
+//             array[i].innerText = array[i + 1].innerText;
+//         }
+//         textbox4.innerText = "";
+//     }
 
     
-    for(let i = 0; i < 5; i++){
-        if (array[i].innerText.length === 0){
-            array[i].innerText = message;
-            break
-        }
-    }
-}
+//     for(let i = 0; i < 5; i++){
+//         if (array[i].innerText.length === 0){
+//             array[i].innerText = message;
+//             break
+//         }
+//     }
+
 function userValidityCheck(username){
     if(username.length >= 25){
         alert("this username is too long");
@@ -64,7 +64,11 @@ function userValidityCheck(username){
     }
     return false;
 }
-
+function newMessage(messageAdded){
+    const message = document.createElement("li");
+    message.innerText = messageAdded;
+    texts.appendChild(message);
+}
 form.addEventListener("submit", (e) => {
     e.preventDefault(); 
     if (inputBox.value) {
@@ -86,12 +90,13 @@ form.addEventListener("submit", (e) => {
 
             else {
                 socket.emit('message', inputBox.value);
-                if(!(textbox4.innerText.length === 0)){
-                    filled = true;
-                }
+                // if(!(textbox4.innerText.length === 0)){
+                //     filled = true;
+                // }
                 let messageUser = username + ': ' + inputBox.value;
-                textboxfill(messageUser);
-                console.log(username + ': ' + inputBox.value);
+                // textboxfill(messageUser);
+                newMessage(messageUser);
+                console.log("new message");
             }
         }
 
@@ -107,7 +112,7 @@ socket.on('all messages', messages => {
     for (let i = 0; i < userMessages.length; i++) {
         let message = userMessages[i];
         
-        textboxfill(message);
+        newMessage(message);
         }
 })
 
@@ -126,7 +131,7 @@ socket.on('message', message => {
     userMessages.push(user + ': ' + message['message'])
     console.log(user + ': ' + message['message']);
     let messageThis = user + ': ' + message['message'];
-    textboxfill(messageThis);
+    newMessage(messageThis);
 
 })
 
@@ -141,7 +146,7 @@ socket.on('new connection', user => {
 
     console.log('New connection: ' + user);
     messageNewUser = 'New connection: ' + user
-    textboxfill(messageNewUser);
+    
     
 })
 
@@ -149,7 +154,7 @@ socket.on('leave', user => {
     console.log(user + " has disconnected.");
     usersOnline.splice(usersOnline.indexOf(user), 1)
     messageLeft = user + " has disconnected."
-    textboxfill(messageLeft);
+    newMessage(messageLeft);
     userDisplay.innerText = ""
     activeuser()
     delete userMessages[user];

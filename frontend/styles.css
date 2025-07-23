@@ -71,7 +71,7 @@ nav li:active:first-child{
     list-style-type: none;
 
 }
-.text_0{
+/* .text_0{
     grid-area: text_0;
 }
 .text_1{
@@ -88,7 +88,7 @@ nav li:active:first-child{
 
 .text_4{
     grid-area: text_4;
-}
+} */
 
 .Text-container{
     border: 2px solid;
@@ -122,10 +122,5 @@ nav li:active:first-child{
 .input-area{
     padding: 30px;
     display: grid;
-    grid-template-areas:   "text_0       text_0        text_0      text_0        text_0        text_0        text_0"
-                           "text_1       text_1        text_1         text_1        text_1        text_1        text_1"
-                           "text_2      text_2        text_2         text_2        text_2        text_2        text_2"
-                           "text_3       text_3        text_3         text_3        text_3       text_3        text_3"
-                           "text_4       text_4       text_4         text_4        text_4        text_4        text_4"
-                        " message-input message-input message-input  message-input message-input message-input send-button";
+    grid-template-areas: " message-input message-input message-input  message-input message-input message-input send-button";
 }
