@@ -66,7 +66,6 @@ function userValidityCheck(username){
     return false;
 }
 function newMessage(messageAdded){
-    // if(MessageStacklength <= 10){
     const message = document.createElement("li");
     message.innerText = messageAdded;
     texts.appendChild(message);

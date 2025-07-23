@@ -59,6 +59,8 @@ nav li:active:first-child{
 }
 .messages{
     margin: 100px;
+    overflow: auto;
+    height: 500px;;
 }
 .messages li{
     border: 5px solid #928DAB;
