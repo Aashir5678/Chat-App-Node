@@ -30,7 +30,7 @@ async function connect() {
         orderedMessages.push(allMessages[i]['user'] + ': ' + allMessages[i]['message'])
     }
 
-    await userMessage.deleteMany({}) 
+    // await userMessage.deleteMany({}) 
 }
 
 connect().then(() => {console.log(orderedMessages)})
