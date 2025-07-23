@@ -52,6 +52,7 @@ function activeuser(){
 //         }
 //     }
 
+// Returns true if the username is invalid
 function userValidityCheck(username){
     if(username.length >= 25){
         alert("this username is too long");
@@ -71,20 +72,18 @@ function newMessage(messageAdded){
     texts.appendChild(message);
 }
 form.addEventListener("submit", (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (inputBox.value) {
-        if (username == null || !permissibleUsername) {
-            if(!userValidityCheck(inputBox.value)){
+        if(username == null && !userValidityCheck(inputBox.value)){
             socket.emit('username', inputBox.value)
             username = inputBox.value
             usersOnline.push(username)
             userMessages[username] = []
             userDisplay.innerText = "";
             activeuser();
-            }
         }
 
-        else {
+        else if (username != null){
             if (inputBox.value === "/users") {
                 console.log(usersOnline)
             }
@@ -119,7 +118,7 @@ socket.on('all messages', messages => {
 
 socket.on('active users', users => {
     usersOnline = users
-    permissibleUsername = true
+    activeuser()
 
 })
 

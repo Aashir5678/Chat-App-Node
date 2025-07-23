@@ -20,6 +20,7 @@ app.use(express.static(__dirname + '/frontend'));
 
 async function connect() {
     await mongoose.connect(db_uri)
+
     console.log('connected')
 
     const allMessages = await userMessage.find() // Find all user messages
@@ -28,6 +29,8 @@ async function connect() {
     for (let i =0; i < allMessages.length; i++) {
         orderedMessages.push(allMessages[i]['user'] + ': ' + allMessages[i]['message'])
     }
+
+    await userMessage.deleteMany({}) 
 }
 
 connect().then(() => {console.log(orderedMessages)})
@@ -38,6 +41,8 @@ const userMessage = mongoose.model('userMessage', userMessageSchema)
 
 io.on('connection', socket => {
     socket.emit('all messages', orderedMessages)
+    socket.emit('active users', activeUsers, )
+
     socket.on('disconnect', () => {
         if (socket.id in users) {
             activeUsers.splice(activeUsers.indexOf(users[socket.id]), 1)
@@ -57,33 +62,36 @@ io.on('connection', socket => {
 
     socket.on('message', mes => {
         let username = users[socket.id]
-        console.log(username + ": " + mes)
-        
-        let message_obj = {'username': username, 'message': mes}
-        socket.broadcast.emit('message', message_obj)
+        if (username != null) {
+            console.log(username + ": " + mes)
+            
+            let message_obj = {'username': username, 'message': mes}
+            socket.broadcast.emit('message', message_obj)
 
-        orderedMessages.push(username + ': ' + mes)
+            orderedMessages.push(username + ': ' + mes)
 
-        let message = new userMessage({user: username, message: mes})
-        console.log(message.user)
-        message.save().then((res) => {console.log(res)}).catch((err) => {console.log(err)})
+            let message = new userMessage({user: username, message: mes})
+            console.log(message.user)
+            message.save().then((res) => {console.log(res)}).catch((err) => {console.log(err)})
+
+        }
 
     })
 
     socket.on('username', username => {
-        if (username in activeUsers) {
-            console.log('Username already exists: ' + username)
-            socket.emit('invalid username', {})
-        }
+        // if (username in activeUsers) {
+        //     console.log('Username already exists: ' + username)
+        //     socket.emit('invalid username', {})
+        // }
 
-        else {
-            activeUsers.push(username)
-            console.log('New connection: ' + username)
-            socket.broadcast.emit('new connection', username)
-            socket.emit('active users', activeUsers, )
+        // else {
+        activeUsers.push(username)
+        console.log('New connection: ' + username)
+        socket.broadcast.emit('new connection', username)
+        // socket.emit('active users', activeUsers, )
 
-            users[socket.id] = username
-        }
+        users[socket.id] = username
+        // }
 
 
 
